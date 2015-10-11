@@ -1,0 +1,26 @@
+{
+  "name": "carshop-demo",
+  "version": "1.0.0",
+  "description": "基于MongoDB, Express, Node架构的汽车商城开发示例",
+  "main": "server/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qingfeng365/CarShopDemoV1.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/qingfeng365/CarShopDemoV1/issues"
+  },
+  "homepage": "https://github.com/qingfeng365/CarShopDemoV1#readme",
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "express": "^4.13.3",
+    "moment": "^2.10.6",
+    "mongoose": "^4.1.10",
+    "underscore": "^1.8.3"
+  }
+}

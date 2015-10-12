@@ -2,6 +2,10 @@ var express = require('express');
 var port = 3000;
 var app = express();
 
+var path = require('path');
+
+app.use(express.static(path.join(__dirname, '../client')));
+
 app.set('views', __dirname + '/views/pages');
 app.set('view engine', 'jade');
 

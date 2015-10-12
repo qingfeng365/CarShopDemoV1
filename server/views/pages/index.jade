@@ -1,4 +1,18 @@
 extends ../layout
 
 block content
-	h1=title
+	.container
+		.row
+			each car in cars
+				.col-sm-3
+					.card
+						a(href="/car/#{car._id}")
+							img.card-img-top(src=car.imageLogo, alt=car.proTitle)
+						.card-block
+							h4.card-title.text-center=car.proTitle
+							span.h3.text-danger=car.guidePrice
+							span.text-danger 万元起
+							a.btn.btn-primary.btn-sm.pull-right(href="/car/#{car._id}") 详情
+						.card-footer.text-muted
+							span #{car.buyNum}人正在购买	
+

@@ -1,4 +1,32 @@
 extends ../layout
 
 block content
-	h1=title
+	.container
+		.row
+			.col-md-6
+				.text-center
+					figure.figure
+						img.img-thumbnail(src=car.imageLogo, alt=car.proTitle)
+						figcaption.figure-caption=car.modelName
+			.col-md-6
+				dl.dl-horizontal
+					dt.col-sm-3 厂牌
+					dd.col-sm-9=car.brand
+					dt.col-sm-3 车系
+					dd.col-sm-9=car.series
+					dt.col-sm-3 颜色
+					dd.col-sm-9=car.color
+					dt.col-sm-3 年款
+					dd.col-sm-9=car.yearStyle
+					dt.col-sm-3 车型
+					dd.col-sm-9=car.modelName
+					dt.col-sm-3 排量
+					dd.col-sm-9=car.ml
+					dt.col-sm-3 最大功率
+					dd.col-sm-9=car.kw
+					dt.col-sm-3 变速箱
+					dd.col-sm-9=car.gearbox
+					dt.col-sm-3 指导价(万)
+					dd.col-sm-9=car.guidePrice
+
+

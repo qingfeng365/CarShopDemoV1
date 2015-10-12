@@ -1,4 +1,36 @@
 extends ../layout
 
 block content
-	h1=title
+	.container
+		.row
+			table.table.table-hover.table-bordered.table-striped.table-sm
+				thead.thead-default
+					tr
+						th 厂牌
+						th 车系
+						th 颜色
+						th 年款
+						th 车型
+						th 排量
+						th 最大功率
+						th 变速箱
+						th 指导价(万)
+						th 操作
+				tbody
+					each car in cars
+						tr
+							td=car.brand
+							td=car.series
+							td=car.color
+							td=car.yearStyle
+							td=car.modelName
+							td=car.ml
+							td=car.kw
+							td=car.gearbox
+							td=car.guidePrice
+							td
+								a.btn.btn-primary.btn-sm(href="/car/#{car._id}") 查看
+								span &nbsp;
+								a.btn.btn-primary.btn-sm(href="/admin/car/update/#{car._id}") 修改
+								span &nbsp;
+								button.btn.btn-danger.btn-sm(type="button", data-id="#{car._id}") 删除

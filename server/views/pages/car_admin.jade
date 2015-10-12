@@ -1,4 +1,49 @@
 extends ../layout
 
 block content
-	h1=title
+	.container
+		.row
+			form(id="form", method="post", action="/admin/car")
+				input(type="hidden", name="car[_id]", value=car._id)
+				.form-group.row
+					label.col-sm-2.form-control-label(for="inputbrand") 厂牌
+					.col-sm-10
+						input#inputbrand.form-control(type="text", name="car[brand]", value=car.brand)
+				.form-group.row
+					label.col-sm-2.form-control-label(for="inputseries") 车系
+					.col-sm-10
+						input#inputseries.form-control(type="text", name="car[series]", value=car.series)
+				.form-group.row
+					label.col-sm-2.form-control-label(for="inputcolor") 颜色
+					.col-sm-10
+						input#inputcolor.form-control(type="text", name="car[color]", value=car.color)
+				.form-group.row
+					label.col-sm-2.form-control-label(for="yearStyle") 年款
+					.col-sm-10
+						input#yearStyle.form-control(type="text", name="car[yearStyle]", value=car.yearStyle)
+				.form-group.row
+					label.col-sm-2.form-control-label(for="inputmodelName") 车型
+					.col-sm-10
+						input#inputmodelName.form-control(type="text", name="car[modelName]", value=car.modelName)
+				.form-group.row
+					label.col-sm-2.form-control-label(for="ml") 排量
+					.col-sm-10
+						input#ml.form-control(type="text", name="car[ml]", value=car.ml)
+				.form-group.row
+					label.col-sm-2.form-control-label(for="kw") 最大功率
+					.col-sm-10
+						input#kw.form-control(type="text", name="car[kw]", value=car.kw)
+				.form-group.row
+					label.col-sm-2.form-control-label(for="gearbox") 变速箱
+					.col-sm-10
+						input#gearbox.form-control(type="text", name="car[gearbox]", value=car.gearbox)
+				.form-group.row
+					label.col-sm-2.form-control-label(for="guidePrice") 指导价(万)
+					.col-sm-10
+						input#guidePrice.form-control(type="text", name="car[guidePrice]", value=car.guidePrice)
+				.form-group.row
+					label.col-sm-2.form-control-label(for="imageLogo") 图片
+					.col-sm-10
+						input#imageLogo.form-control(type="text", name="car[imageLogo]", value=car.imageLogo)
+				.row.text-right
+					button.btn.btn-primary(type="submit") 提交

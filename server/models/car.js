@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-var carSchema = new mongoose.Schema({
+var schemaCar = new mongoose.Schema({
   proTitle: String,
   brand: String,
   series: String,
@@ -27,3 +27,7 @@ var carSchema = new mongoose.Schema({
     }
   }  
 });
+
+var ModelCar = mongoose.model('ModelCar', schemaCar, 'car');
+
+module.exports = ModelCar;

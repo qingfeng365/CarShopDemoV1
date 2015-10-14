@@ -2,7 +2,7 @@
 // brand:厂牌
 // series:车系
 // color:颜色
-// modelName:车型名称
+// carModelName:车型名称
 // ml:排量
 // kw:最大功率
 // gearbox:变速箱
@@ -17,7 +17,7 @@
 			series:"英朗",
 			color:"中国红",
 			yearStyle:"2015款",
-			modelName:"15N 手动 进取型",
+			carModelName:"15N 手动 进取型",
 			ml:"1.5L",
 			kw:"84kw",
 			gearbox:"6挡 手自一体",
@@ -31,7 +31,7 @@
 			series:"哈弗",
 			color:"雅致银",
 			yearStyle:"2015款",
-			modelName:"升级版 1.5T 手动 两驱 都市型",
+			carModelName:"升级版 1.5T 手动 两驱 都市型",
 			ml:"1.5L",
 			kw:"110kw",
 			gearbox:"6挡 手动",
@@ -45,7 +45,7 @@
 			series:"速腾",
 			color:"雅士银",
 			yearStyle:"2015款",
-			modelName:"1.4T 双离合 230TSI 舒适型",
+			carModelName:"1.4T 双离合 230TSI 舒适型",
 			ml:"1.4L",
 			kw:"96kw",
 			gearbox:"7挡 双离合",
@@ -59,7 +59,7 @@
 			series:"捷达",
 			color:"珊瑚蓝",
 			yearStyle:"2015款",
-			modelName:"质惠版 1.4L 手动时尚型",
+			carModelName:"质惠版 1.4L 手动时尚型",
 			ml:"1.4L",
 			kw:"66kw",
 			gearbox:"5挡 手动",
@@ -73,7 +73,7 @@
 			series:"XR-V",
 			color:"炫金银",
 			yearStyle:"2015款",
-			modelName:"1.5L 自动 经典版",
+			carModelName:"1.5L 自动 经典版",
 			ml:"1.5L",
 			kw:"96kw",
 			gearbox:"无级挡 CVT无级变速",

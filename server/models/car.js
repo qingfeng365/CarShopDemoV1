@@ -6,7 +6,7 @@ var schemaCar = new mongoose.Schema({
   series: String,
   color: String,
   yearStyle: String,
-  modelName: String,
+  carModelName: String,
   ml: String,
   kw: String,
   gearbox: String,

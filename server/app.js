@@ -3,7 +3,10 @@ var port = 3000;
 var app = express();
 var path = require('path');
 
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/carShop');
 
+var ModelCar = require('./models/car');
 
 var morgan = require('morgan');
 app.use(morgan('dev'));
@@ -13,44 +16,28 @@ app.use(express.static(path.join(__dirname, '../client')));
 app.set('views', __dirname + '/views/pages');
 app.set('view engine', 'jade');
 
+app.locals.pretty = true;
+
 app.get('/', function(req, res) {
-  res.render('index', {
-    title: '汽车商城 首页',
-    cars: [{
-      _id: 1,
-      proTitle: "英朗",
-      guidePrice: "11.99",
-      imageLogo: "http://img10.360buyimg.com/n7/jfs/t751/148/1231629630/30387/67209b8b/5528c39cNab2d388c.jpg",
-      buyNum: 200
-    }, {
-      _id: 2,
-      proTitle: "哈弗H6",
-      guidePrice: "9.63",
-      imageLogo: "http://img10.360buyimg.com/n7/jfs/t874/304/396255796/41995/328da75e/5528c399N3f9cc646.jpg",
-      buyNum: 888
-    }, {
-      _id: 3,
-      proTitle: "速腾",
-      guidePrice: "12.30",
-      imageLogo: "http://img10.360buyimg.com/n7/jfs/t988/239/475904647/32355/a1d35780/55278f2cN574b21ab.jpg",
-      buyNum: 100
-    }, {
-      _id: 4,
-      proTitle: "捷达",
-      guidePrice: "7.51",
-      imageLogo: "http://img10.360buyimg.com/n7/jfs/t1108/41/489298815/33529/38655c9f/5528c276N41f39d00.jpg",
-      buyNum: 300
-    }, {
-      _id: 5,
-      proTitle: "本田XR-V",
-      guidePrice: "12.78",
-      imageLogo: "http://img10.360buyimg.com/n7/jfs/t754/341/1237166856/40843/baf73c5c/5528c273Ncb42f04c.jpg",
-      buyNum: 500
-    }]
+  ModelCar.fetch(function(err, cars) {
+
+    if (err) {
+      // console.log(err);
+      return next(err);
+    }
+
+    res.render('index', {
+      title: '汽车商城 首页',
+      cars: cars
+    });
+
   });
 });
 
 app.get('/car/:id', function(req, res) {
+
+
+
   res.render('car_detail', {
     title: '汽车商城 详情页',
     car: {
@@ -163,7 +150,17 @@ app.get('/admin/car/update/:id', function(req, res) {
 
 app.listen(port);
 
-require('express-debug')(app, {
-  panels: ['locals', 'request', 'session', 'template', 'software_info', 'nav']
-});
+// require('express-debug')(app, {
+//   panels: ['locals', 'request', 'session', 'template', 'software_info', 'nav']
+// });
+
 console.log("汽车商城网站服务已启动,监听端口号:" + port);
+
+var errorhandler = require('errorhandler');
+app.use(errorhandler);
+
+
+
+
+
+

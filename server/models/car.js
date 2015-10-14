@@ -25,8 +25,24 @@ var schemaCar = new mongoose.Schema({
       type: Date,
       default: Date.now()
     }
-  }  
+  }
 });
+
+schemaCar.statics = {
+  fetch: function(cb) {
+    return this
+      .find({})
+      .sort('meta.createDate')
+      .exec(cb);
+  },
+  findById: function(id, cb) {
+    return this
+      .findOne({
+        _id: id
+      })
+      .exec(cb);
+  }
+}
 
 var ModelCar = mongoose.model('ModelCar', schemaCar, 'car');
 

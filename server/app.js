@@ -1,8 +1,12 @@
 var express = require('express');
 var port = 3000;
 var app = express();
-
 var path = require('path');
+
+
+
+var morgan = require('morgan');
+app.use(morgan('dev'));
 
 app.use(express.static(path.join(__dirname, '../client')));
 
@@ -159,4 +163,7 @@ app.get('/admin/car/update/:id', function(req, res) {
 
 app.listen(port);
 
+require('express-debug')(app, {
+  panels: ['locals', 'request', 'session', 'template', 'software_info', 'nav']
+});
 console.log("汽车商城网站服务已启动,监听端口号:" + port);

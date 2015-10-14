@@ -58,19 +58,6 @@ var showRoute = function(req, res) {
   console.log(req.query);
   console.log(''); 
 
-  console.log('req.route');
-  console.log(req.route);
-  console.log(''); 
-
-  console.log('req.signedCookies');
-  console.log(req.signedCookies);
-  console.log(''); 
-
-  console.log('req.xhr');
-  console.log(req.xhr);
-  console.log(''); 
-
-
   res.sendStatus(200);
 };
 

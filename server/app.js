@@ -42,6 +42,22 @@ app.get('/car/:id', function(req, res) {
     if (err) {
       return next(err);
     }
+
+    for (var prop in car) {
+      if (car.hasOwnProperty(prop)) {
+        console.log(prop);
+      }
+    }
+
+    console.log('car.__proto__');
+    console.log(car.__proto__);
+
+    console.log('car._doc:');
+    console.log(car._doc);
+
+    console.log('car.$__:');
+    console.log(car.$__);
+
     res.render('car_detail', {
       title: '汽车商城 详情页',
       car: car
@@ -85,6 +101,7 @@ app.get('/admin/car/update/:id', function(req, res) {
 app.listen(port);
 
 require('express-debug')(app, {
+  depth:10,
   panels: ['locals', 'request', 'session', 'template', 'software_info', 'nav']
 });
 

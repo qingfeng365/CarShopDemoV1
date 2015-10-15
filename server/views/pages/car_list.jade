@@ -15,6 +15,7 @@ block content
 						th 最大功率
 						th 变速箱
 						th 指导价(万)
+						th 录入日期
 						th 操作
 				tbody
 					each car in cars
@@ -28,6 +29,7 @@ block content
 							td=car.kw
 							td=car.gearbox
 							td=car.guidePrice
+							td=moment(car.meta.createDate).format("YYYY-MM-DD")
 							td
 								a.btn.btn-primary.btn-sm(href="/car/#{car._id}") 查看
 								span &nbsp;

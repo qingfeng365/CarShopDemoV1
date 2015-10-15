@@ -35,26 +35,13 @@ app.get('/', function(req, res) {
 });
 
 app.get('/car/:id', function(req, res) {
+  var id = req.params.id;
 
-
-
-  res.render('car_detail', {
-    title: '汽车商城 详情页',
-    car: {
-      _id: 1,
-      proTitle: "英朗",
-      brand: "别克",
-      series: "英朗",
-      color: "中国红",
-      yearStyle: "2015款",
-      carModelName: "15N 手动 进取型",
-      ml: "1.5L",
-      kw: "84kw",
-      gearbox: "6挡 手自一体",
-      guidePrice: "11.99",
-      imageLogo: "http://img10.360buyimg.com/n7/jfs/t751/148/1231629630/30387/67209b8b/5528c39cNab2d388c.jpg",
-      buyNum: 200
-    }
+  ModelCar.findById(id, function(err, car) {
+    res.render('car_detail', {
+      title: '汽车商城 详情页',
+      car: car
+    });
   });
 });
 
@@ -158,9 +145,3 @@ console.log("汽车商城网站服务已启动,监听端口号:" + port);
 
 var errorhandler = require('errorhandler');
 app.use(errorhandler);
-
-
-
-
-
-

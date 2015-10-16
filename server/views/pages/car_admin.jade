@@ -4,7 +4,8 @@ block content
 	.container
 		.row
 			form(id="form", method="post", action="/admin/car")
-				input(type="hidden", name="car[_id]", value=car._id)
+				if car._id
+					input(type="hidden", name="car[_id]", value=car._id)
 				.form-group.row
 					label.col-sm-2.form-control-label(for="inputproTitle") 展示名称
 					.col-sm-10

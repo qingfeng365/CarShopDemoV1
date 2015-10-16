@@ -6,6 +6,10 @@ block content
 			form(id="form", method="post", action="/admin/car")
 				input(type="hidden", name="car[_id]", value=car._id)
 				.form-group.row
+					label.col-sm-2.form-control-label(for="inputproTitle") 展示名称
+					.col-sm-10
+						input#inputproTitle.form-control(type="text",name="car[proTitle]" value=car.proTitle)
+				.form-group.row
 					label.col-sm-2.form-control-label(for="inputbrand") 厂牌
 					.col-sm-10
 						input#inputbrand.form-control(type="text", name="car[brand]", value=car.brand)

@@ -20,6 +20,9 @@ app.set('view engine', 'jade');
 
 app.locals.pretty = true;
 
+var bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({ extended: true }));
+
 app.get('/', function(req, res) {
   ModelCar.fetch(function(err, cars) {
 
@@ -38,9 +41,14 @@ app.get('/', function(req, res) {
 app.get('/car/:id', function(req, res) {
   var id = req.params.id;
 
+  console.log(app);
   ModelCar.findById(id, function(err, car) {
     if (err) {
-      return next(err);
+      // console.log(err);
+      //next();
+      
+      res.redirect('/');
+      next(err);
     }
     res.render('car_detail', {
       title: '汽车商城 详情页',
@@ -81,6 +89,12 @@ app.get('/admin/car/update/:id', function(req, res) {
   });
 });
 
+app.post('/admin/car',function(req,res){
+  console.log(req.body);
+
+  res.sendStatus(200);
+});
+
 
 app.listen(port);
 
@@ -93,3 +107,7 @@ console.log("汽车商城网站服务已启动,监听端口号:" + port);
 
 var errorhandler = require('errorhandler');
 app.use(errorhandler);
+
+
+
+

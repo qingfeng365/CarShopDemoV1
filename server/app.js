@@ -1,3 +1,5 @@
+'use strict';
+
 var express = require('express');
 var port = 3000;
 var app = express();
@@ -5,6 +7,12 @@ var path = require('path');
 
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/carShop');
+var db = mongoose.connection;
+db.on('error', function(err){
+  console.error('mongoose 连接错误: ' + err.message + ' (' + err.name + ')');
+});
+
+  // console.error.bind(console, 'mongoose 错误信息:'));
 
 var ModelCar = require('./models/car');
 
@@ -25,6 +33,8 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
+
+
 app.get('/', function(req, res) {
   ModelCar.fetch(function(err, cars) {
     if (err) {
@@ -32,7 +42,7 @@ app.get('/', function(req, res) {
       return res.sendStatus(500);
     }
     res.render('index', {
-      title: '汽车商城 首页',
+      title: '汽车商城 首页111',
       cars: cars
     });
 
@@ -90,7 +100,6 @@ app.get('/admin/car/update/:id', function(req, res) {
 app.post('/admin/car', function(req, res) {
   var carObj = req.body.car;
   if (!carObj) {
-    console.log(err);
     return res.sendStatus(400, '找不到合法数据.');
   }
   var id = carObj._id;
@@ -148,7 +157,7 @@ require('express-debug')(app, {
   panels: ['locals', 'request', 'session', 'template', 'software_info', 'nav']
 });
 
-console.log("汽车商城网站服务已启动,监听端口号:" + port);
+console.log('汽车商城网站服务已启动,监听端口号:' + port);
 
 var errorhandler = require('errorhandler');
 app.use(errorhandler);

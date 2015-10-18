@@ -1,9 +1,11 @@
+'use strict';
+
 var express = require('express');
 var port = 4000;
 var app = express();
 
 app.listen(port);
-console.log("路由测试服务已启动,监听端口号:" + port);
+console.log('路由测试服务已启动,监听端口号:' + port);
 
 var showRoute = function(req, res) {
   console.log('================');

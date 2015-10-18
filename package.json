@@ -25,6 +25,12 @@
     "underscore": "^1.8.3"
   },
   "devDependencies": {
-    "express-debug": "^1.1.1"
+    "browser-sync": "^2.9.11",
+    "express-debug": "^1.1.1",
+    "gulp": "^3.9.0",
+    "gulp-jshint": "^1.11.2",
+    "gulp-nodemon": "^2.0.4",
+    "jshint-stylish": "^2.0.1",
+    "xmlhttprequest": "^1.8.0"
   }
 }

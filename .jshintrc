@@ -1,0 +1,20 @@
+{
+  "bitwise": true,
+  "eqeqeq": true,
+  "camelcase": true,
+  "indent": 2,
+  "undef": true,
+  "quotmark": "single",
+  "maxlen": 120,
+  "trailing": true,
+  "curly": true,
+  "browser": true,
+  "jquery": true,
+  "node": true,
+  "noarg": true,
+  "newcap": true,
+  "unused": false,
+  "strict": true,
+  "lastsemic": true,
+  "latedef": "nofunc"
+}

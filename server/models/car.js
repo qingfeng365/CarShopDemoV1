@@ -30,6 +30,13 @@ var schemaCar = new mongoose.Schema({
   }
 });
 
+schemaCar.pre('save',function(next){
+  if (!this.isNew){
+    this.meta.updateDate = Date.now();
+  }
+  next();
+});
+
 schemaCar.statics = {
   fetch: function(cb) {
     return this

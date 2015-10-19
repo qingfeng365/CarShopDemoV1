@@ -34,27 +34,23 @@ app.use(bodyParser.urlencoded({
 }));
 
 
-
-app.get('/', function(req, res) {
+app.get('/', function(req, res, next) {
   ModelCar.fetch(function(err, cars) {
     if (err) {
-      console.log(err);
-      return res.sendStatus(500);
+      return next(err);
     }
     res.render('index', {
-      title: '汽车商城 首页111',
+      title: '汽车商城 首页',
       cars: cars
     });
-
   });
 });
 
-app.get('/car/:id', function(req, res) {
+app.get('/car/:id', function(req, res, next) {
   var id = req.params.id;
   ModelCar.findById(id, function(err, car) {
     if (err) {
-      console.log(err);
-      return res.redirect('/');
+      return next(err);
     }
     res.render('car_detail', {
       title: '汽车商城 详情页',
@@ -63,11 +59,10 @@ app.get('/car/:id', function(req, res) {
   });
 });
 
-app.get('/admin/car/list', function(req, res) {
+app.get('/admin/car/list', function(req, res, next) {
   ModelCar.fetch(function(err, cars) {
     if (err) {
-      console.log(err);
-      return res.redirect('/');
+      return next(err);
     }
     res.render('car_list.jade', {
       title: '汽车商城 列表页',
@@ -83,12 +78,11 @@ app.get('/admin/car/new', function(req, res) {
   });
 });
 
-app.get('/admin/car/update/:id', function(req, res) {
+app.get('/admin/car/update/:id', function(req, res, next) {
   var id = req.params.id;
   ModelCar.findById(id, function(err, car) {
     if (err) {
-      console.log(err);
-      return res.redirect('/');
+      return next(err);
     }
     res.render('car_admin', {
       title: '汽车商城 后台录入页',
@@ -97,10 +91,10 @@ app.get('/admin/car/update/:id', function(req, res) {
   });
 });
 
-app.post('/admin/car', function(req, res) {
+app.post('/admin/car', function(req, res, next) {
   var carObj = req.body.car;
   if (!carObj) {
-    return res.sendStatus(400, '找不到合法数据.');
+    return res.status(400).send('找不到合法数据.');
   }
   var id = carObj._id;
   if (!id) {
@@ -108,8 +102,7 @@ app.post('/admin/car', function(req, res) {
     var docCar = new ModelCar(carObj);
     docCar.save(function(err, _car) {
       if (err) {
-        console.log(err);
-        return res.redirect('/');
+        return next(err);
       }
       return res.redirect('/car/' + _car._id);
     });
@@ -117,8 +110,7 @@ app.post('/admin/car', function(req, res) {
     //修改
     ModelCar.findByIdAndUpdate(id, carObj, function(err, _car) {
       if (err) {
-        console.log(err);
-        return res.redirect('/');
+        return next(err);
       }
       return res.redirect('/car/' + id);
     });
@@ -127,15 +119,15 @@ app.post('/admin/car', function(req, res) {
 
 // /admin/list?id=xxxxx
  
-app.delete('/admin/list', function(req, res) {
+app.delete('/admin/list', function(req, res, next) {
   var id = req.query.id;
   if (id) {
     ModelCar.findByIdAndRemove(id, function(err, _car) {
       if (err) {
-        console.log(err);
-        res.json({
+        res.status(500).json({
           ok: 0
         });
+        return next(err);
       } else {
         res.json({
           ok: 1
@@ -152,10 +144,10 @@ app.delete('/admin/list', function(req, res) {
 
 app.listen(port);
 
-require('express-debug')(app, {
-  depth: 10,
-  panels: ['locals', 'request', 'session', 'template', 'software_info', 'nav']
-});
+// require('express-debug')(app, {
+//   depth: 10,
+//   panels: ['locals', 'request', 'session', 'template', 'software_info', 'nav']
+// });
 
 console.log('汽车商城网站服务已启动,监听端口号:' + port);
 

@@ -35,20 +35,6 @@ block content
 								span &nbsp;
 								a.btn.btn-primary.btn-sm(href="/admin/car/update/#{car._id}") 修改
 								span &nbsp;
-								button.btn.btn-danger.btn-sm(type="button", 
-									data-id="#{car._id}",data-toggle="modal", data-target="#delConfirm") 删除
-	.container
-		#delConfirm.modal.fade
-			.modal-dialog
-				.modal-content
-					.modal-header
-						button.close(type="button", data-dismiss="modal")
-							span &times;
-						h6.modal-title 智能助手
-					.modal-body
-						p 确定删除吗?
-					.modal-footer
-						button#delConfirmbtnOk.btn.btn-primary(type="button") 确定
-						button.btn.btn-secondary(type="button", data-dismiss="modal") 取消
+								button.del.btn.btn-danger.btn-sm(type="button", data-id="#{car._id}") 删除
 block pagesrc
 	script(src="/js/car_list.js")

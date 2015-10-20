@@ -25,12 +25,6 @@ var nodemonConfig = {
   }
 };
 
-/**
- * [description]
- * @param  {[type]} done)    {             browserSync({    proxy: "localhost:3000",      port: 5000,      notify: true  } [description]
- * @param  {[type]} done);} [description]
- * @return {[type]}          [description]
- */
 gulp.task('browser-sync', ['nodemon'], function(done) {
   browserSync({
     proxy: "localhost:3000", //项目端口 
@@ -39,12 +33,6 @@ gulp.task('browser-sync', ['nodemon'], function(done) {
   }, done);
 });
 
-/**
- * [description]
- * @param  {[type]} cb)    {                   var           called [description]
- * @param  {[type]} 1000);               });} [description]
- * @return {[type]}        [description]
- */
 gulp.task('nodemon', function(cb) {
   var called = false;
   return nodemon(nodemonConfig)
@@ -64,11 +52,6 @@ gulp.task('nodemon', function(cb) {
     });
 });
 
-/**
- * [description]
- * @param  {[type]} ) {             return gulp.src(paths.scripts)    .pipe(jshint())    .pipe(jshint.reporter('jshint-stylish'));} [description]
- * @return {[type]}   [description]
- */
 gulp.task('lint', function() {
   return gulp.src(scripts)
     .pipe(jshint())
@@ -79,10 +62,8 @@ gulp.task('watch', function() {
   gulp.watch(scripts, ['lint']);
 });
 
-/**
- * [默认执行的任务]
- */
-gulp.task('default', ['browser-sync','watch']);
+
+gulp.task('default', ['watch','browser-sync']);
 
 /**
  * [description]

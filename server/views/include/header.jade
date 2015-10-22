@@ -1,3 +1,15 @@
 .container
 	.row.m-a-md
-		h1=title
+		nav.navbar.navbar-dark.bg-primary
+			a.navbar-brand(href="/")
+				img(src="holder.js/100x30?theme=sky&text=#{appTitle}")
+			ul.nav.navbar-nav
+				li.nav-item.active
+					a.nav-link(href='/admin/car/list') 列表
+			ul.nav.navbar-nav.pull-right
+				li.nav-item
+					a.nav-link(href="/singin") 登录
+				li.nav-item
+					span.nav-link |
+				li.nav-item
+					a.nav-link(href="/singup") 注册

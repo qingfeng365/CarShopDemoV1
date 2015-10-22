@@ -18,6 +18,7 @@ app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, '../client')));
 
 app.locals.moment = require('moment');
+app.locals.appTitle = '汽车商城';
 
 app.set('views', __dirname + '/views/pages');
 app.set('view engine', 'jade');

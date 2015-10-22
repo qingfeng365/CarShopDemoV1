@@ -2,6 +2,7 @@
 
 var indexController = require('./controllers/index');
 var carController = require('./controllers/car');
+var userController = require('./controllers/user');
 
 module.exports = function(app) {
   app.get('/', indexController.index);
@@ -18,4 +19,7 @@ module.exports = function(app) {
 
   // /admin/list?id=xxxxx
   app.delete('/admin/list', carController.del);
+
+  app.get('/signup', userController.showSignup);
+
 };

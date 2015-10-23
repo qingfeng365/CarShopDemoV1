@@ -4,6 +4,7 @@ var express = require('express');
 var port = 3000;
 var app = express();
 var path = require('path');
+var _ = require('underscore');
 
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/carShop');
@@ -107,12 +108,26 @@ app.post('/admin/car', function(req, res, next) {
       return res.redirect('/car/' + _car._id);
     });
   } else {
-    //修改
-    ModelCar.findByIdAndUpdate(id, carObj, function(err, _car) {
+    //修改 方案一
+    // ModelCar.findByIdAndUpdate(id, carObj, function(err, _car) {
+    //   if (err) {
+    //     return next(err);
+    //   }
+    //   return res.redirect('/car/' + id);
+    // });
+
+    //修改 方案二
+    ModelCar.findById(id, function(err, docCar){
       if (err) {
         return next(err);
       }
-      return res.redirect('/car/' + id);
+      docCar = _.extend(docCar, carObj);
+      docCar.save(function(err, _car) {
+        if (err) {
+          return next(err);
+        }
+        return res.redirect('/car/' + _car._id);
+      });
     });
   }
 });

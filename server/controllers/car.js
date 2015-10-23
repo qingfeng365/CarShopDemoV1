@@ -1,5 +1,5 @@
 'use strict';
-
+var _ = require('underscore');
 var ModelCar = require('../models/car');
 
 module.exports.showDetail = function(req, res, next) {
@@ -13,7 +13,7 @@ module.exports.showDetail = function(req, res, next) {
       car: car
     });
   });
-}
+};
 
 module.exports.showList = function(req, res, next) {
   ModelCar.fetch(function(err, cars) {
@@ -25,14 +25,14 @@ module.exports.showList = function(req, res, next) {
       cars: cars
     });
   });
-}
+};
 
 module.exports.new = function(req, res, next) {
   res.render('car_admin', {
     title: '汽车商城 后台录入页',
     car: {}
   });
-}
+};
 module.exports.update = function(req, res, next) {
   var id = req.params.id;
   ModelCar.findById(id, function(err, car) {
@@ -44,7 +44,7 @@ module.exports.update = function(req, res, next) {
       car: car
     });
   });
-}
+};
 module.exports.post = function(req, res, next) {
   var carObj = req.body.car;
   if (!carObj) {
@@ -61,15 +61,29 @@ module.exports.post = function(req, res, next) {
       return res.redirect('/car/' + _car._id);
     });
   } else {
-    //修改
-    ModelCar.findByIdAndUpdate(id, carObj, function(err, _car) {
+    //修改 方案一
+    // ModelCar.findByIdAndUpdate(id, carObj, function(err, _car) {
+    //   if (err) {
+    //     return next(err);
+    //   }
+    //   return res.redirect('/car/' + id);
+    // });
+
+    //修改 方案二
+    ModelCar.findById(id, function(err, docCar){
       if (err) {
         return next(err);
       }
-      return res.redirect('/car/' + id);
+      docCar = _.extend(docCar, carObj);
+      docCar.save(function(err, _car) {
+        if (err) {
+          return next(err);
+        }
+        return res.redirect('/car/' + _car._id);
+      });
     });
   }
-}
+};
 module.exports.del = function(req, res, next) {
   var id = req.query.id;
   if (id) {

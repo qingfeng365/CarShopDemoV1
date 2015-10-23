@@ -4,6 +4,7 @@ var express = require('express');
 var port = 3000;
 var app = express();
 var path = require('path');
+var _ = require('underscore');
 
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/carShop');
@@ -30,7 +31,9 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
+
 require('./routes')(app);
+
 
 app.listen(port);
 

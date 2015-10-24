@@ -43,5 +43,16 @@ require('express-debug')(app, {
 
 console.log('汽车商城网站服务已启动,监听端口号:' + port);
 
-var errorhandler = require('errorhandler');
-app.use(errorhandler);
+if (process.env.NODE_ENV === 'development') {
+
+  mongoose.set('debug', true);
+
+  require('express-debug')(app, {
+    depth: 4,
+    panels: ['locals', 'request', 'session', 'template', 'software_info', 'nav']
+  });
+
+  var errorhandler = require('errorhandler');
+  app.use(errorhandler);
+
+}

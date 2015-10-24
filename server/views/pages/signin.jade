@@ -1,0 +1,25 @@
+extends ../layout
+
+block content
+	.container.m-t-lg
+		.row
+			.col-md-6.col-md-offset-3
+				.card
+					.card-header.text-center 用户登录
+					.card-block
+						form(method="POST", action="/signin")
+							.form-group.row
+								label.form-control-label.col-sm-3 用户名称
+								.col-sm-9
+									input.form-control(type="text",
+										name="user[name]",placeholder="请输入用户名称",required)
+							.form-group.row
+								label.form-control-label.col-sm-3 密码
+								.col-sm-9
+									input.form-control(type="password",
+										name="user[password]",placeholder="请输入密码",required)
+							.form-group.row
+								.col-sm-9.col-sm-offset-3
+									button.btn.btn-primary(type="submit") 提交														
+
+

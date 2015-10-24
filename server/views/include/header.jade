@@ -7,9 +7,17 @@
 				li.nav-item.active
 					a.nav-link(href='/admin/car/list') 列表
 			ul.nav.navbar-nav.pull-right
-				li.nav-item
-					a.nav-link(href="/signin") 登录
-				li.nav-item
-					span.nav-link |
-				li.nav-item
-					a.nav-link(href="/signup") 注册
+				if user
+					li.nav-item
+						span.nav-link 欢迎您,#{user.name}
+					li.nav-item
+						span.nav-link |
+					li.nav-item
+						a.nav-link(href="/logout") 登出				
+				else	
+					li.nav-item
+						a.nav-link(href="/signin") 登录
+					li.nav-item
+						span.nav-link |
+					li.nav-item
+						a.nav-link(href="/signup") 注册

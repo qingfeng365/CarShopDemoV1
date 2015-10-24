@@ -35,14 +35,10 @@ schemaUser.pre('save', function(next) {
     if (err) {
       return next(err);
     }
-    console.log('bcrypt.genSalt');
-    console.log(this);
     bcrypt.hash(docUser.password, salt, function(err, hash) {
       if (err) {
         return next(err);
       }
-      console.log('bcrypt.hash');
-      console.log(this);
       docUser.password = hash;
       next();
     });
@@ -62,6 +58,19 @@ schemaUser.statics = {
         _id: id
       })
       .exec(cb);
+  }
+};
+
+schemaUser.methods = {
+  comparePassword: function(inputpw, cb) {
+    var docUser = this;
+    bcrypt.compare(inputpw, docUser.password,
+      function(err, isMatch) {
+        if(err){
+          return cb(err);
+        }
+        cb(null, isMatch);
+      });
   }
 };
 

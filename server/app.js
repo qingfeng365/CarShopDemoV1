@@ -6,6 +6,7 @@ var app = express();
 var path = require('path');
 var _ = require('underscore');
 
+
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/carShop');
 var db = mongoose.connection;
@@ -15,6 +16,21 @@ db.on('error', function(err) {
 
 var morgan = require('morgan');
 app.use(morgan('dev'));
+
+var session = require('express-session');
+var MongoStore = require('connect-mongo')(session);
+app.use(session({
+  name: 'carshopsession',
+  secret: 'carshopkey',
+  resave: false,
+  saveUninitialized: false,
+  // cookie: { secure: false,maxAge: 24*60*60*1000 }
+  store: new MongoStore({
+    mongooseConnection: mongoose.connection,
+    ttl: 3 * 24 * 60 * 60,
+    touchAfter: 24 * 60 * 60 
+  })
+}));
 
 app.use(express.static(path.join(__dirname, '../client')));
 
@@ -30,6 +46,7 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({
   extended: true
 }));
+
 
 
 require('./routes')(app);

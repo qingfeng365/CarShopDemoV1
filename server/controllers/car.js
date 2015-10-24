@@ -104,4 +104,4 @@ module.exports.del = function(req, res, next) {
       ok: 0
     });
   }
-}
+};

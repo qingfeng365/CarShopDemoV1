@@ -9,7 +9,7 @@ var _ = require('underscore');
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/carShop');
 var db = mongoose.connection;
-db.on('error', function(err){
+db.on('error', function(err) {
   console.error('mongoose 连接错误: ' + err.message + ' (' + err.name + ')');
 });
 
@@ -37,12 +37,18 @@ require('./routes')(app);
 
 app.listen(port);
 
-require('express-debug')(app, {
-  depth: 10,
-  panels: ['locals', 'request', 'session', 'template', 'software_info', 'nav']
-});
-
 console.log('汽车商城网站服务已启动,监听端口号:' + port);
 
-var errorhandler = require('errorhandler');
-app.use(errorhandler);
+if (process.env.NODE_ENV === 'development') {
+
+  mongoose.set('debug', true);
+
+  require('express-debug')(app, {
+    depth: 4,
+    panels: ['locals', 'request', 'session', 'template', 'software_info', 'nav']
+  });
+
+  var errorhandler = require('errorhandler');
+  app.use(errorhandler);
+
+}

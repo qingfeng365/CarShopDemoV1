@@ -21,5 +21,6 @@ module.exports = function(app) {
   app.delete('/admin/list', carController.del);
 
   app.get('/signup', userController.showSignup);
+  app.post('/signup', userController.postSignup);
 
 };

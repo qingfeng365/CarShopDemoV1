@@ -33,7 +33,6 @@ var schemaCar = new mongoose.Schema({
 //注意:该预处理过程,只会在使用doc对象的save方法才会触发
 //this表示doc对象自身
 schemaCar.pre('save',function(next){
-  console.log('pre save---');
   if (!this.isNew){
     this.meta.updateDate = Date.now();
   }

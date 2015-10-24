@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/qingfeng365/CarShopDemoV1#readme",
   "dependencies": {
+    "bcryptjs": "^2.3.0",
     "body-parser": "^1.14.1",
     "errorhandler": "^1.4.2",
     "express": "^4.13.3",

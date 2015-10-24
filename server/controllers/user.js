@@ -52,13 +52,49 @@ module.exports.postSignin = function(req, res, next) {
         console.log(err);
         return res.redirect('/signin');
       }
-      if(isMatch){
+      if (isMatch) {
         console.log('用户: %s 登录验证成功.', name);
         req.session.user = _user;
-        return res.redirect('/');
-      }else{
+        var id = _user._id;
+        ModelUser.findOneAndUpdate({_id:id},{$set:{lastSigninDate:Date.now()}},function(err, _user){
+          if (err) {
+            return next(err);
+          }          
+          return res.redirect('/');
+        });
+      } else {
         return res.redirect('/signin');
       }
     });
   });
 };
+
+module.exports.logout = function(req, res, next) {
+  req.session.destroy(function(err) {
+    return res.redirect('/');
+  });
+};
+
+module.exports.requireSignin = function(req, res, next) {
+  var user = req.session.user;
+  if (!user) {
+    return res.redirect('/signin');
+  }
+  next();
+};
+
+module.exports.requireAdmin = function(req, res, next) {
+  var user = req.session.user;
+  if (!user) {
+    return res.redirect('/signin');
+  }
+  if (!user.level) {
+    return res.redirect('/signin');
+  }  
+  if (user.role < 900) {
+    return res.redirect('/signin');
+  }
+  next();  
+};
+
+

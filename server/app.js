@@ -24,11 +24,9 @@ app.use(session({
   secret: 'carshopkey',
   resave: false,
   saveUninitialized: false,
-  // cookie: { secure: false,maxAge: 24*60*60*1000 }
+  cookie:{maxAge:3 * 24 * 60 * 60 * 1000},
   store: new MongoStore({
     mongooseConnection: mongoose.connection,
-    ttl: 3 * 24 * 60 * 60,
-    touchAfter: 24 * 60 * 60 
   })
 }));
 

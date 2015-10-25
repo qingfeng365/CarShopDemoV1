@@ -23,7 +23,9 @@ module.exports.postSignup = function(req, res, next) {
   var docUser = new ModelUser(userObj);
   docUser.save(function(err, _user) {
     if (err) {
-      return next(err);
+      res.locals.syserrmsg = '用户名已存在，不能完成注册';
+      // return next(err);
+      return module.exports.showSignup(req, res, next);
     }
     req.session.user = _user;
     return res.redirect('/');
@@ -45,7 +47,9 @@ module.exports.postSignin = function(req, res, next) {
       return res.redirect('/signup');
     }
     if (!_user) {
-      return res.redirect('/signup');
+      res.locals.syserrmsg = '用户名不存在...';
+      // return res.redirect('/signup');
+      return module.exports.showSignin(req, res, next);
     }
     _user.comparePassword(inputpw, function(err, isMatch) {
       if (err) {
@@ -63,7 +67,9 @@ module.exports.postSignin = function(req, res, next) {
           return res.redirect('/');
         });
       } else {
-        return res.redirect('/signin');
+        res.locals.syserrmsg = '密码不正确，请重新输入...';
+        // return res.redirect('/signin');
+        return module.exports.showSignin(req, res, next);
       }
     });
   });

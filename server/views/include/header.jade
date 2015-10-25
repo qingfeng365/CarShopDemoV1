@@ -21,3 +21,8 @@
 						span.nav-link |
 					li.nav-item
 						a.nav-link(href="/signup") 注册
+	if syserrmsg 
+		.alert.alert-danger.alert-dismissible.fade.in
+			button.close(type="button", data-dismiss="alert")
+				span &times;
+			!{syserrmsg}

@@ -23,3 +23,16 @@ var schemaComment = new mongoose.Schema({
     }
   }
 });
+
+schemaComment.statics = {
+  fetchByCarId: function(carId,cb) {
+    return this
+      .find({car:carId})
+      .populate('from', 'name')
+      .exec(cb);
+  }
+};
+
+var ModelComment = mongoose.model('ModelComment', schemaComment, 'comment');
+
+module.exports = ModelComment;

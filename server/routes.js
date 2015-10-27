@@ -3,6 +3,7 @@
 var indexController = require('./controllers/index');
 var carController = require('./controllers/car');
 var userController = require('./controllers/user');
+var commentController = require('./controllers/comment');
 
 module.exports = function(app) {
   app.use(function(req, res, next) {
@@ -29,4 +30,6 @@ module.exports = function(app) {
   app.post('/signup', userController.postSignup);
   app.post('/signin', userController.postSignin);
   app.get('/logout', userController.logout);
+
+  app.post('/car/comment', userController.requireSignin, commentController.post);
 };

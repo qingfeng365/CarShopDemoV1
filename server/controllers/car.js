@@ -1,6 +1,7 @@
 'use strict';
 var _ = require('underscore');
 var ModelCar = require('../models/car');
+var ModelComment = require('../models/comment');
 
 module.exports.showDetail = function(req, res, next) {
   var id = req.params.id;
@@ -8,9 +9,16 @@ module.exports.showDetail = function(req, res, next) {
     if (err) {
       return next(err);
     }
-    res.render('car_detail', {
-      title: '汽车商城 详情页',
-      car: car
+    var carId = car._id;
+    ModelComment.fetchByCarId(carId, function(err, comments) {
+      if (err) {
+        return next(err);
+      }
+      res.render('car_detail', {
+        title: '汽车商城 详情页',
+        car: car,
+        comments:comments
+      });
     });
   });
 };
@@ -70,7 +78,7 @@ module.exports.post = function(req, res, next) {
     // });
 
     //修改 方案二
-    ModelCar.findById(id, function(err, docCar){
+    ModelCar.findById(id, function(err, docCar) {
       if (err) {
         return next(err);
       }

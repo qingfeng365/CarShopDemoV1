@@ -47,11 +47,26 @@ block content
 									.media-left
 										img.media-object(data-src="holder.js/64x64?theme=social")
 									.media-body
-										h6.media-heading #{comment.from.name}
+										h6.media-heading
+											span.text-primary #{comment.from.name} :
 										p #{comment.content}
 										p
 											span.text-muted=moment(comment.meta.createDate).format("YYYY-MM-DD")
 											a.m-l-lg(href="#") 回复 
+										.card.card-block
+											each reply in comment.reply
+												.media
+													.media-left
+														img.media-object(data-src="holder.js/64x64?theme=social")
+													.media-body
+														h6.media-heading 
+															span.text-primary #{reply.from.name} 
+															span &nbsp;回复&nbsp; 
+															span.text-primary #{reply.to.name} :		
+														p #{reply.content}
+														p
+															span.text-muted=moment(reply.meta.createDate).format("YYYY-MM-DD")
+															a.m-l-lg(href="#") 回复 																					
 						.card-block
 							h6 我来说一句:
 							form(id="commentform", method="post", action="/car/comment")
@@ -62,7 +77,7 @@ block content
 									textarea.form-control(name="comment[content]", row=3, placeholder="输入评论内容......")
 								if user
 									.row
-										button.btn.btn-primary(type="submit") 提交
+										button.btn.btn-primary(type="submit") 发表
 								else
 									.row
 										a.btn.btn-primary(href="/signin") 登录后评论

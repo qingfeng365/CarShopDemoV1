@@ -22,11 +22,30 @@ module.exports.post = function(req, res, next) {
 
   } else {
     //回复评论
-    
+    console.log(commentObj);
     var commentId = commentObj.commentid;
-    
+    var fromUserId = commentObj.from;
+    var toUserId = commentObj.to;
+    var content = commentObj.content;
 
+    ModelComment.findOne({
+      _id: commentId
+    }, function(err, _comment) {
+      if (err) {
+        return next(err);
+      }
+      _comment.reply.push({
+        from: fromUserId,
+        to: toUserId,
+        content: content
+      });
+
+      _comment.save(function(err, __comment) {
+        if (err) {
+          return next(err);
+        }
+        return res.redirect('/car/' + carId);
+      });
+    });
   }
-
-
 };

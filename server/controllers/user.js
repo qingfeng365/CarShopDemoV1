@@ -24,10 +24,9 @@ module.exports.postSignup = function(req, res, next) {
   docUser.save(function(err, _user) {
     if (err) {
       res.locals.syserrmsg = '用户名已存在，不能完成注册';
-      // return next(err);
       return module.exports.showSignup(req, res, next);
     }
-    req.session.user = _user;
+    req.session.loginuser = _user;
     return res.redirect('/');
   });
 };
@@ -48,7 +47,6 @@ module.exports.postSignin = function(req, res, next) {
     }
     if (!_user) {
       res.locals.syserrmsg = '用户名不存在...';
-      // return res.redirect('/signup');
       return module.exports.showSignin(req, res, next);
     }
     _user.comparePassword(inputpw, function(err, isMatch) {
@@ -58,7 +56,7 @@ module.exports.postSignin = function(req, res, next) {
       }
       if (isMatch) {
         console.log('用户: %s 登录验证成功.', name);
-        req.session.user = _user;
+        req.session.loginuser = _user;
         var id = _user._id;
         ModelUser.findOneAndUpdate({_id:id},{$set:{lastSigninDate:Date.now()}},function(err, _user){
           if (err) {
@@ -68,7 +66,6 @@ module.exports.postSignin = function(req, res, next) {
         });
       } else {
         res.locals.syserrmsg = '密码不正确，请重新输入...';
-        // return res.redirect('/signin');
         return module.exports.showSignin(req, res, next);
       }
     });
@@ -82,7 +79,7 @@ module.exports.logout = function(req, res, next) {
 };
 
 module.exports.requireSignin = function(req, res, next) {
-  var user = req.session.user;
+  var user = req.session.loginuser;
   if (!user) {
     return res.redirect('/signin');
   }
@@ -90,7 +87,7 @@ module.exports.requireSignin = function(req, res, next) {
 };
 
 module.exports.requireAdmin = function(req, res, next) {
-  var user = req.session.user;
+  var user = req.session.loginuser;
   if (!user) {
     return res.redirect('/signin');
   }

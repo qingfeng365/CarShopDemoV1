@@ -5,9 +5,10 @@ var carController = require('./controllers/car');
 var userController = require('./controllers/user');
 
 module.exports = function(app) {
+  
   app.use(function(req, res, next) {
-    var _user = req.session.user;
-    res.locals.user = _user;
+    var _user = req.session.loginuser;
+    res.locals.loginuser = _user;
     next();
   });
 

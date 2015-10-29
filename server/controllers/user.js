@@ -97,7 +97,7 @@ module.exports.requireAdmin = function(req, res, next) {
   if (!user.level) {
     return res.redirect('/signin');
   }  
-  if (user.role < 900) {
+  if (user.level < 900) {
     return res.redirect('/signin');
   }
   next();  

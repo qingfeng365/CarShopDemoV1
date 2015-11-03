@@ -17,22 +17,50 @@ module.exports.showDetail = function(req, res, next) {
       res.render('car_detail', {
         title: '汽车商城 详情页',
         car: car,
-        comments:comments
+        comments: comments
       });
     });
   });
 };
 
 module.exports.showList = function(req, res, next) {
-  ModelCar.fetch(function(err, cars) {
-    if (err) {
-      return next(err);
-    }
-    res.render('car_list.jade', {
-      title: '汽车商城 列表页',
-      cars: cars
+
+  var size = 5;
+  var page = parseInt(req.query.page);
+  var pagetotal = parseInt(req.query.pagetotal);
+
+  if (!page) {
+    //第一次调用
+    ModelCar.getCount(function(err, totalsize) {
+      page = 1;
+      pagetotal = Math.ceil(totalsize / size);
+      ModelCar.findByPage(page, size, function(err, cars) {
+        if (err) {
+          return next(err);
+        }
+        res.render('car_list.jade', {
+          title: '汽车商城 列表页',
+          cars: cars,
+          page: page,
+          size: size,
+          pagetotal: pagetotal
+        });
+      });
     });
-  });
+  } else {
+    ModelCar.findByPage(page, size, function(err, cars) {
+      if (err) {
+        return next(err);
+      }
+      res.render('car_list.jade', {
+        title: '汽车商城 列表页',
+        cars: cars,
+        page: page,
+        size: size,
+        pagetotal: pagetotal
+      });
+    });
+  }
 };
 
 module.exports.new = function(req, res, next) {

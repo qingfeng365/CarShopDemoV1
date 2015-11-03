@@ -38,6 +38,39 @@ block content
 								button.btn.btn-danger.btn-sm(type="button", 
 									data-id="#{car._id}",data-toggle="modal", data-target="#delConfirm") 删除
 	.container
+		.row
+			nav
+				ul.pagination
+					- for (var i=1; i<= pagetotal; i++){
+						- if (i===1){
+							- if(i===page){
+									li.disabled
+										span &laquo;
+							- }else{
+									li
+										a(href="/admin/car/list?page=#{page-1}&pagetotal=#{pagetotal}")
+											span &laquo;
+							- }
+						-	}
+						- if (i===page){
+								li.active
+									span #{i}
+						-	} else {
+							li
+								a(href="/admin/car/list?page=#{i}&pagetotal=#{pagetotal}") #{i}
+						- }
+						- if (i===pagetotal){
+							- if(i===page){
+									li.disabled
+										span &raquo;
+							- }else{
+									li
+										a(href="/admin/car/list?page=#{page+1}&pagetotal=#{pagetotal}")
+											span &raquo;
+							- }
+						-	}							
+					- }
+	.container
 		#delConfirm.modal.fade
 			.modal-dialog
 				.modal-content

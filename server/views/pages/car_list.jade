@@ -56,7 +56,7 @@ block content
 										span &laquo;
 							- }else{
 									li
-										a(href="/admin/car/list?page=#{page-1}&pagetotal=#{pagetotal}")
+										a(href="/admin/car/list?page=#{page-1}&pagetotal=#{pagetotal}#{searchquery}")
 											span &laquo;
 							- }
 						-	}
@@ -65,7 +65,7 @@ block content
 									span #{i}
 						-	} else {
 							li
-								a(href="/admin/car/list?page=#{i}&pagetotal=#{pagetotal}") #{i}
+								a(href="/admin/car/list?page=#{i}&pagetotal=#{pagetotal}#{searchquery}") #{i}
 						- }
 						- if (i===pagetotal){
 							- if(i===page){
@@ -73,7 +73,7 @@ block content
 										span &raquo;
 							- }else{
 									li
-										a(href="/admin/car/list?page=#{page+1}&pagetotal=#{pagetotal}")
+										a(href="/admin/car/list?page=#{page+1}&pagetotal=#{pagetotal}#{searchquery}")
 											span &raquo;
 							- }
 						-	}							

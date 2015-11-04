@@ -34,6 +34,12 @@ module.exports.showList = function(req, res, next) {
   console.log('search');
   console.log(search);
 
+  var searchquery = '';
+  if (search){
+    searchquery = '&search=' + encodeURIComponent(search);
+  }
+  
+
   if (!page) {
     //第一次调用
     ModelCar.getCount(search,function(err, totalsize) {
@@ -48,7 +54,8 @@ module.exports.showList = function(req, res, next) {
           cars: cars,
           page: page,
           size: size,
-          pagetotal: pagetotal
+          pagetotal: pagetotal,
+          searchquery:searchquery
         });
       });
     });
@@ -62,7 +69,8 @@ module.exports.showList = function(req, res, next) {
         cars: cars,
         page: page,
         size: size,
-        pagetotal: pagetotal
+        pagetotal: pagetotal,
+        searchquery:searchquery
       });
     });
   }

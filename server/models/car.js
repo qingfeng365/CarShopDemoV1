@@ -80,7 +80,6 @@ schemaCar.statics = {
         }])
         .count(cb);
     } else {
-
       return this.count(cb);
     }
   },

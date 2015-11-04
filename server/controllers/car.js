@@ -23,18 +23,23 @@ module.exports.showDetail = function(req, res, next) {
   });
 };
 
+
+// admin/car/list?page=&pagetotal=&search=
 module.exports.showList = function(req, res, next) {
 
-  var size = 5;
+  var size = 2;
   var page = parseInt(req.query.page);
   var pagetotal = parseInt(req.query.pagetotal);
+  var search = req.query.search;
+  console.log('search');
+  console.log(search);
 
   if (!page) {
     //第一次调用
-    ModelCar.getCount(function(err, totalsize) {
+    ModelCar.getCount(search,function(err, totalsize) {
       page = 1;
       pagetotal = Math.ceil(totalsize / size);
-      ModelCar.findByPage(page, size, function(err, cars) {
+      ModelCar.findByPage(search,page, size, function(err, cars) {
         if (err) {
           return next(err);
         }
@@ -48,7 +53,7 @@ module.exports.showList = function(req, res, next) {
       });
     });
   } else {
-    ModelCar.findByPage(page, size, function(err, cars) {
+    ModelCar.findByPage(search,page, size, function(err, cars) {
       if (err) {
         return next(err);
       }
@@ -61,6 +66,14 @@ module.exports.showList = function(req, res, next) {
       });
     });
   }
+};
+
+module.exports.search = function(req, res, next) {
+  var search = req.body.search;
+  var s = encodeURIComponent(search.text);
+
+  res.redirect('/admin/car/list?search='+s);
+
 };
 
 module.exports.new = function(req, res, next) {

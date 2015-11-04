@@ -32,8 +32,8 @@ var schemaCar = new mongoose.Schema({
 
 //注意:该预处理过程,只会在使用doc对象的save方法才会触发
 //this表示doc对象自身
-schemaCar.pre('save',function(next){
-  if (!this.isNew){
+schemaCar.pre('save', function(next) {
+  if (!this.isNew) {
     this.meta.updateDate = Date.now();
   }
   next();
@@ -41,8 +41,12 @@ schemaCar.pre('save',function(next){
 
 //注意:该预处理过程,只会在使用Model对象的findOneAndUpdate或findIdAndUpdate才会触发
 //this表示Query对象
-schemaCar.pre('findOneAndUpdate', function(next){
-  this.update({},{$set:{'meta.updateDate':Date.now()}});
+schemaCar.pre('findOneAndUpdate', function(next) {
+  this.update({}, {
+    $set: {
+      'meta.updateDate': Date.now()
+    }
+  });
   next();
 });
 
@@ -61,16 +65,53 @@ schemaCar.statics = {
       })
       .exec(cb);
   },
-  getCount:function(cb){
-    return this.count(cb);
+  getCount: function(s, cb) {
+    if (s) {
+      var regex = new RegExp(s + '.*', 'i');
+      return this.find()
+        .or([{
+          proTitle: regex
+        }, {
+          brand: regex
+        }, {
+          series: regex
+        }, {
+          carModelName: regex
+        }])
+        .count(cb);
+    } else {
+
+      return this.count(cb);
+    }
   },
-  findByPage: function(page,size,cb){
-    return this
-      .find({})
-      .sort('meta.createDate')
-      .skip((page-1)*size)
-      .limit(size)
-      .exec(cb);
+  findByPage: function(s, page, size, cb) {
+    if (s) {
+      var regex = new RegExp(s + '.*', 'i');
+      
+      return this.find()
+        .or([{
+          proTitle: regex
+        }, {
+          brand: regex
+        }, {
+          series: regex
+        }, {
+          carModelName: regex
+        }])
+        .sort('meta.createDate')
+        .skip((page - 1) * size)
+        .limit(size)
+        .exec(cb);
+
+    } else {
+
+      return this
+        .find({})
+        .sort('meta.createDate')
+        .skip((page - 1) * size)
+        .limit(size)
+        .exec(cb);
+    }
   }
 };
 

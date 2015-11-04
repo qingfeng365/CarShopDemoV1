@@ -3,6 +3,14 @@ extends ../layout
 block content
 	.container
 		.row
+			.col-md-4.m-a
+				form#searchForm(action="/admin/car/list/search", method="POST", role="form")
+					.input-group
+						input.form-control(type="text",name="search[text]",placeholder="输入搜索内容...",required)
+						span.input-group-btn
+							button.btn.btn-secondary(type="submit") 搜索
+	.container
+		.row
 			table.table.table-hover.table-bordered.table-striped.table-sm
 				thead.thead-default
 					tr

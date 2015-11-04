@@ -17,6 +17,8 @@ module.exports = function(app) {
   app.get('/car/:id', carController.showDetail);
 
   app.get('/admin/car/list', userController.requireSignin, userController.requireAdmin, carController.showList);
+  app.post('/admin/car/list/search', userController.requireSignin, userController.requireAdmin,
+    carController.search);
 
   app.get('/admin/car/new', userController.requireSignin, userController.requireAdmin, carController.new);
   app.get('/admin/car/update/:id', userController.requireSignin, userController.requireAdmin, carController.update);

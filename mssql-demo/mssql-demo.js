@@ -1,3 +1,5 @@
+'use strict';
+
 var sqlserver = require('mssql');
 
 var sqlConfig = {
